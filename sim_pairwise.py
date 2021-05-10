@@ -273,7 +273,7 @@ parser.add_argument('--sample', type=int,action='store', dest='sample', help="sa
 parser.add_argument('--freq', type=float,action='store', dest='freq', help="frequency threshold")
 parser.add_argument('--p', type=float,action='store', dest='p', help="scale coefficient of DFE")
 parser.add_argument('--mode', action='store', dest='mode', help="population mode",choices=['panmixic','admixture','balancing','sweep'])
-parser.add_argument('--outfmt', action='store', dest='fmt', help="output",choices=['stats','alignment','fitness','distance','arg'])
+parser.add_argument('--outfmt', action='store', dest='fmt', help="output",choices=['stats','alignment','fitness','distance'])
 args = parser.parse_args()
 
 L = args.L
