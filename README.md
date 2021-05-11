@@ -4,7 +4,7 @@ Scripts used to simulate evolution of populations with varying levels of genetic
 The script `run_simulations.sh` will reproduce simulations used in Fig. 1bc, Table 1 and Supplementary Fig. 14-19.
 For large population size and mutation rate, simulations can take some time. To produce a lot of simulations used in the paper, the calculations were parallelized.
 
-#### Pairwise epistasis
+### Pairwise epistasis
 
 We simulate pairwise compensatory epistasis using [FFPopSim](https://github.com/neherlab/ffpopsim) python package (Zanini and Neher, Bioinformatics 2012). 
 We model two types of sites, depending on whether mutations in them are neutral (with selection coefficient s = 0) or weakly deleterious (s ≤ 0), 
@@ -44,7 +44,7 @@ optional arguments:
 ```
 
 
-Detailed description:
+#####Detailed description:
 
 
 If `-i` (the number of simulations) is equal to 1, a pair of simulations will be produced: one without epistasis and one with epistasis under the same population parameters
@@ -97,5 +97,21 @@ the selection coefficient values are sampled from gamma distribution with parame
  * `alignment` gives the alignment-like representation of the sampled genotypes: for each genotype and each position, there is the allelic state of the position (either 0 or 1; 0 corresponds to the wild-type); the genotypes are sorted by pairwise identity.
 
 
-The script can be easily adjusted for your purpose. The examples of how it could be run are in `run_simulations.sh`.
+The script can be easily adjusted for your purpose. The examples of how it could be run are in `run_simulations.sh` in the **pairwise epistasis** section.
+
+
+### Global epistasis
+
+In the global epistasis model  selection against each mutation depends only on the total number of such mutations present in this genotype. Under the global epistasis model, s depends on the total number of deleterious mutations in the genotype ndel. Specifically, s was set to equal 
+`s(ndel) = -max[0, s0 * (1 - k * ndel)],`
+where `s0` is the selection coefficient of a mutation on the wild-type background (set to -0.005), and k is the epistatic coefficient. Positive (antagonistic, or widening) epistasis between nonsynonymous mutations is modelled with `k > 0`, meaning that they become less deleterious in the context of other nonsynonymous mutations and become neutral if `ndel > 1/k`. Under negative (synergistic, or narrowing) epistasis (`k< 0`), the mutations become more deleterious in the presence of other mutations. Without epistasis `(k = 0)`, selection coefficient of each mutation equals s0. Global epistasis was simulated using [SLiM3.0](https://messerlab.org/slim/) (Haller and Messer 2019).
+
+The `sim_global.slim` config file can be used to run the simulation. The parameters needed to be set are:
+ * `_MUT_` - mutation rate (per generation per nucleotide)
+ * `_REC_` - population-scaled recombination rate
+ * `_S_` - selection coefficient of deleterious mutations (multiplied by N=2000)
+ * `_K_` - epistatic coefficient *k*
+
+The epistasis function and other parameters can be easily changed in the `.slim` script.
+
 

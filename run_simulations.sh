@@ -1,3 +1,4 @@
+# pairwise epistasis
 
 # admixture model (Supplementary Fig. 17)
 
@@ -69,6 +70,8 @@ python2.7 sim_pairwise.py -i 2000 -N 2000 -L 999 --mu 1e-6 --epi_mode isolated -
 python2.7 sim_pairwise.py -i 5000 -N 2000 -L 999 --mu 5e-7 --epi_mode isolated --rec .01 --sigma 10 --sample 100 --freq 0.05 --mode panmixic --gen 40000,1 --outfmt fitness --p 0 | grep -v 'gen'  >> aa_fit4.out
 python2.7 sim_pairwise.py -i 10000 -N 2000 -L 999 --mu 2.5e-7 --epi_mode isolated --rec .01 --sigma 10 --sample 100 --freq 0.05 --mode panmixic --gen 40000,1 --outfmt fitness --p 0 | grep -v 'gen'  >> aa_fit4.out
 
+
+# global epistasis
 
 
 

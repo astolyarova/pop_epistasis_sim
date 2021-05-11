@@ -1,0 +1,25 @@
+// Keywords: 
+
+initialize() {
+	initializeMutationRate(_MUT_);
+	initializeMutationType("m1", 0.5, "f", 0.0);  // neutral
+		initializeMutationType("m2", 0.5, "f", 0.0);  // neutral
+	initializeGenomicElementType("g1", c(m1,m2), c(2,1));
+	initializeGenomicElement(g1, 0, 999);
+	initializeRecombinationRate(_REC_/1000.0/2);
+m1.convertToSubstitution=T;
+m2.convertToSubstitution=T;
+}
+1 { sim.addSubpop("p1", 1000); }
+fitness(m1) {
+	c1=genome1.countOfMutationsOfType(m1); 
+	c2=genome2.countOfMutationsOfType(m1); 
+	y=_K_;
+	x=_S_*exp(y)/1000/2;
+	x1=1-x*exp(-y*c1);
+	x2=1-x*exp(-y*c2);
+        if (c1==0) {x1=1.0;}
+        if (c2==0) {x2=1.0;}
+    return(sqrt(x1*x2));
+}
+20000 late() { p1.outputSample(100); }
