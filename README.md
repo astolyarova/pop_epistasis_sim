@@ -44,7 +44,7 @@ optional arguments:
 ```
 
 
-#####Detailed description:
+#### Detailed description:
 
 
 If `-i` (the number of simulations) is equal to 1, a pair of simulations will be produced: one without epistasis and one with epistasis under the same population parameters
